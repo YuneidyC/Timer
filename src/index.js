@@ -2,12 +2,14 @@ let timerSeconds = document.getElementById('seconds');
 let timerMinutes = document.getElementById('minutes');
 const timerButton = document.getElementById('timer-button');
 const hero = document.getElementById('principal');
+
 let secondsValue = 0;
 let minutesValue = 0;
 let currentInterval;
 let currentButton;
 document.getElementById('timer-button').addEventListener('click', timer);
 document.getElementById('chronometer-button').addEventListener('click', mainInner);
+document.getElementById('alarm-button').addEventListener('click', clearScreenAlarm);
 
 function mainInner() {
     resetStopwatch();
@@ -17,17 +19,8 @@ function mainInner() {
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Chronometer';
 
     const divButton = document.getElementsByClassName('hero--buttons')[0];
-    const form = document.getElementsByClassName('form--timer')[0];
-    const div = document.getElementsByClassName('pomodoro--container')[0];
 
-    const input = document.getElementsByClassName('input');
-    removeChildren(input);
-
-    form.remove();
-    div.remove();
-
-    const buttonStart = document.getElementsByClassName('hero--button');
-    removeChildren(buttonStart);
+    removeChilds(divButton);
 
     const start = createChild(divButton, 'button', 'button', 'Start', 'button', 'hero--button');
     start.addEventListener('click', startChronometer);
@@ -123,8 +116,7 @@ function timer() {
 
     const divButton = document.getElementsByClassName('hero--buttons')[0];
 
-    const button = document.getElementsByClassName('hero--button');
-    removeChildren(button);
+    removeChilds(divButton);
 
     const form = document.createElement('form');
     form.classList.add('form--timer');
@@ -157,13 +149,6 @@ function timer() {
     timerSeconds = document.getElementById('seconds');
 }
 
-function removeChildren(params) {
-    for (let i = params.length - 1; i >= 0; i--) {
-        const element = params[i];
-        element.parentNode.removeChild(element);
-    }
-}
-
 function createChild(parent, elementType, type, title, className, className2 = null) {
     const element = document.createElement(elementType);
     parent.appendChild(element);
@@ -192,4 +177,87 @@ function addPlaceholder(element, placeholder) {
     element.placeholder = placeholder;
 }
 
+const removeChilds = (parent) => {
+    while(parent.lastChild) {
+        parent.removeChild(parent.lastChild);
+    }
+}
+
+// Alarm
+function clearScreenAlarm() {
+    document.getElementsByClassName('hero--title')[0].innerHTML = 'Alarm';
+    const divButton = document.getElementsByClassName('hero--buttons')[0];
+    const time = document.getElementsByClassName('hero--time')[0];
+    removeChilds(time);
+    removeChilds(divButton);
+    createContainerAlarm(divButton);
+
+    // Make sure that it's updated before the first interval tick
+    updateClockHandles();
+
+    setInterval(updateClockHandles, 1000);
+}
+
+function createContainerAlarm(container) {
+    const clock = document.createElement('div');
+    clock.classList.add('clock');
+    container.appendChild(clock);
+
+    const outerClock = document.createElement('div');
+    outerClock.classList.add('outer-clock-face');
+    clock.appendChild(outerClock);
+
+    const markingOne = document.createElement('div');
+    markingOne.classList.add('marking', 'marking--one');
+    outerClock.appendChild(markingOne);
+
+    const makingTwo = document.createElement('div');
+    makingTwo.classList.add('marking', 'marking-two');
+    outerClock.appendChild(makingTwo);
+
+    const markingThree = document.createElement('div');
+    markingThree.classList.add('marking', 'marking-three');
+    outerClock.appendChild(markingThree);
+
+    const markingFour = document.createElement('div');
+    markingFour.classList.add('marking', 'marking-four');
+    outerClock.appendChild(markingFour);
+
+    const innerClock = document.createElement('div');
+    innerClock.classList.add('inner-clock');
+    outerClock.appendChild(innerClock);
+
+    const hourHand = document.createElement('div');
+    hourHand.classList.add('hand', 'hour-hand');
+    innerClock.appendChild(hourHand);
+
+    const minuteHand = document.createElement('div');
+    minuteHand.classList.add('hand', 'minute-hand');
+    innerClock.appendChild(minuteHand);
+
+    const secondsHand = document.createElement('div');
+    secondsHand.classList.add('hand', 'second-hand');
+    innerClock.appendChild(secondsHand);
+
+}
+
+function tranformHandles(seconds, minutes, hour) {
+    const hourHand = document.getElementsByClassName('hour-hand')[0];
+    const minHand = document.getElementsByClassName('minute-hand')[0];
+    const secondHand = document.getElementsByClassName('second-hand')[0];
+
+    secondHand.style.transform = `rotate(${getDegreesFromTime(seconds, 60)}deg)`;
+    minHand.style.transform = `rotate(${getDegreesFromTime(minutes, 60)}deg)`;
+    hourHand.style.transform = `rotate(${getDegreesFromTime(hour, 12)}deg)`;
+}
+
+function updateClockHandles() {
+    const now = new Date();
+    tranformHandles(now.getSeconds(), now.getMinutes(), now.getHours());
+}
+
+function getDegreesFromTime(value, range) {
+    // Simple rule of three
+    return (value / range) * 360 + 90;
+}
 
