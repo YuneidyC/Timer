@@ -18,20 +18,24 @@ function mainInner() {
 
     const divButton = document.getElementsByClassName('hero--buttons')[0];
     const form = document.getElementsByClassName('form--timer')[0];
+    const div = document.getElementsByClassName('pomodoro--container')[0];
 
     const input = document.getElementsByClassName('input');
     removeChildren(input);
 
+    form.remove();
+    div.remove();
+
     const buttonStart = document.getElementsByClassName('hero--button');
     removeChildren(buttonStart);
 
-    const start = createChild(form, 'button', 'button', 'Start', 'button', 'hero--button');
+    const start = createChild(divButton, 'button', 'button', 'Start', 'button', 'hero--button');
     start.addEventListener('click', startChronometer);
 
-    const stop = createChild(form, 'button', 'button', 'Stop', 'button', 'hero--button');
+    const stop = createChild(divButton, 'button', 'button', 'Stop', 'button', 'hero--button');
     stop.addEventListener('click', stopChronometer);
 
-    const reset = createChild(form, 'button', 'button', 'Reset', 'button', 'hero--button');
+    const reset = createChild(divButton, 'button', 'button', 'Reset', 'button', 'hero--button');
     reset.addEventListener('click', resetChronometer);
 }
 
@@ -82,8 +86,8 @@ function startTimer() {
     event.preventDefault();
     currentButton = event.target;
     currentButton.disabled = true;
-    let minutes = parseInt(document.getElementsByTagName('input')[0].value);
-    let seconds = parseInt(document.getElementsByTagName('input')[1].value);
+    let minutes = parseInt(document.getElementsByTagName('input')[0].value);;
+    let seconds = parseInt(document.getElementsByTagName('input')[1].value);;
 
     timerMinutes.textContent = minutes;
     timerSeconds.textContent = seconds;
@@ -111,6 +115,7 @@ function startTimer() {
 }
 
 function timer() {
+    stopChronometer();
     resetStopwatch();
     document.getElementById('chronometer-button').disabled = false;
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Timer';
@@ -126,22 +131,27 @@ function timer() {
     divButton.appendChild(form);
     form.onsubmit = function() {startTimer()};
 
-    let inputMinutes = createChild(form, 'input', 'number');
-    inputMinutes.classList.add('input');
-    inputMinutes.placeholder = 'Insert minutes';
-    
-    let inputSeconds = createChild(form, 'input', 'number');
-    inputSeconds.classList.add('input');
-    inputSeconds.placeholder = 'Insert seconds';
+    createChild(form, 'input', 'number', 'Insert minutes', 'inputMinutes');
+    createChild(form, 'input', 'number', 'Insert seconds', 'inputSeconds');
 
-    const buttonStart = createChild(form, 'button', 'button', 'Start', 'button', 'hero--button');
-    buttonStart.addEventListener('click', startTimer);
+    const start = createChild(form, 'button', 'button', 'Start', 'button', 'hero--button');
+    start.addEventListener('click', startTimer);
 
-    const buttonStop = createChild(form, 'button', 'button', 'Stop', 'button', 'hero--button');
-    buttonStop.addEventListener('click', stopChronometer);
+    const stop = createChild(form, 'button', 'button', 'Stop', 'button', 'hero--button');
+    stop.addEventListener('click', stopChronometer);
 
-    const buttonReset = createChild(form, 'button', 'button', 'Reset', 'button', 'hero--button');
-    buttonReset.addEventListener('click', resetChronometer);
+    const reset = createChild(form, 'button', 'button', 'Reset', 'button', 'hero--button');
+    reset.addEventListener('click', resetChronometer);
+
+    const div = document.createElement('div');
+    div.classList.add('pomodoro--container');
+    divButton.appendChild(div);
+
+    const pomodoro = createChild(div, 'button', 'button', 'Pomodoro', 'button', 'pomodoro');
+    pomodoro.addEventListener('click', () => {
+        document.getElementsByClassName('inputMinutes')[0].value = 5;
+        document.getElementsByClassName('inputSeconds')[0].value = 0;
+    });
 
     timerMinutes = document.getElementById('minutes');
     timerSeconds = document.getElementById('seconds');
@@ -154,20 +164,32 @@ function removeChildren(params) {
     }
 }
 
-function createChild(parent, elementType, type, textContent, className, className2 = null) {
+function createChild(parent, elementType, type, title, className, className2 = null) {
     const element = document.createElement(elementType);
     parent.appendChild(element);
     element.type = type;
-    addClassAndText(element, textContent, className, className2);
-    return element;
+    addClassName(element, className, className2);
+    if(type === 'button') {
+        addTextContent(element, title);
+        return element;
+    } else {
+        addPlaceholder(element, title);
+    }
 }
 
-function addClassAndText(element, textContent, className, className2) {
+function addClassName(element, className, className2) {
     element.classList.add(className);
-    element.textContent = textContent;
-
     if(className2 != null) {
         element.classList.add(className2);
     }
 }
+
+function addTextContent(element, textContent) {
+    element.textContent = textContent;
+}
+
+function addPlaceholder(element, placeholder) {
+    element.placeholder = placeholder;
+}
+
 

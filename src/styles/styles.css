@@ -24,10 +24,6 @@ header {
     width: 100%;
 }
 
-button:hover {
-    cursor: pointer;
-}
-
 .header--nav ul {
     width: 100%;
     display: flex;
@@ -38,13 +34,6 @@ button:hover {
 
 .header--nav ul li button img {
     width: 30px;
-}
-
-.header--button {
-    background-color: transparent;
-    border: transparent;
-    border-radius: 20px;
-    cursor: pointer;
 }
 
 main {
@@ -65,4 +54,40 @@ main {
 
 .hero--time p {
     font-size: 2.4rem;
+}
+
+.header--button {
+    background-color: transparent;
+    border: transparent;
+}
+
+.hero--button {
+    background-color: white;
+    border-radius: 40px;
+    border: transparent;
+    text-align: center;
+    margin: 5px;
+    cursor: pointer;
+    height: 20px;
+    width: 40px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.hero--button:disabled {
+    background-color: lightgray;
+    border: lightgray solid;
+}
+
+.pomodoro--container .pomodoro {
+    width: 70px;
+    background-color: tomato;
+    border: transparent;
+    border-radius: 40px;
+}
+
+.pomodoro--container {
+    margin: 15px;
 }
