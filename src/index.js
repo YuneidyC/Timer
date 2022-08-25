@@ -26,35 +26,33 @@ function mainInner() {
 
   removeChilds(divButton);
 
-  const start = createChild(
+  createButton(
     divButton,
     "button",
     "button",
     "hero--button",
     "button",
-    "Start"
+    "Start",
+    startChronometer
   );
-  start.addEventListener("click", startChronometer);
-
-  const stop = createChild(
+  createButton(
     divButton,
     "button",
     "button",
     "hero--button",
     "button",
-    "Stop"
+    "Stop",
+    stopChronometer
   );
-  stop.addEventListener("click", stopChronometer);
-
-  const reset = createChild(
+  createButton(
     divButton,
     "button",
     "button",
     "hero--button",
     "button",
-    "Reset"
+    "Reset",
+    resetChronometer
   );
-  reset.addEventListener("click", resetChronometer);
 }
 
 function resetStopwatch() {
@@ -100,7 +98,7 @@ function resetChronometer() {
 }
 
 //TIMER
-function startTimer() {
+const startTimer = function startTimer() {
   event.preventDefault();
   currentButton = event.target;
   currentButton.disabled = true;
@@ -130,7 +128,7 @@ function startTimer() {
     timerMinutes.textContent = formatValue(minutesValue);
     timerSeconds.textContent = formatValue(secondsValue);
   }, 1000);
-}
+};
 
 function timer() {
   stopChronometer();
@@ -158,6 +156,7 @@ function timer() {
     "input",
     "Insert minutes"
   );
+
   createChild(
     form,
     "input",
@@ -167,35 +166,33 @@ function timer() {
     "Insert seconds"
   );
 
-  const start = createChild(
+  createButton(
     form,
     "button",
     "button",
     "hero--button",
     "button",
-    "Start"
+    "Start",
+    startTimer
   );
-  start.addEventListener("click", startTimer);
-
-  const stop = createChild(
+  createButton(
     form,
     "button",
     "button",
     "hero--button",
     "button",
-    "Stop"
+    "Stop",
+    stopChronometer
   );
-  stop.addEventListener("click", stopChronometer);
-
-  const reset = createChild(
+  createButton(
     form,
     "button",
     "button",
     "hero--button",
     "button",
-    "Reset"
+    "Reset",
+    resetChronometer
   );
-  reset.addEventListener("click", resetChronometer);
 
   const div = document.createElement("div");
   div.classList.add("pomodoro--container");
@@ -216,6 +213,26 @@ function timer() {
 
   timerMinutes = document.getElementById("minutes");
   timerSeconds = document.getElementById("seconds");
+}
+
+function createButton(
+  parent,
+  elementType,
+  className,
+  className2,
+  type,
+  title,
+  chronometerOrTimer = null
+) {
+  const button = createChild(
+    parent,
+          elementType,
+    className,
+    className2,
+    type,
+    title
+  );
+  button.addEventListener("click", chronometerOrTimer);
 }
 
 function createChild(
