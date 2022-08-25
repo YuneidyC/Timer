@@ -22,13 +22,13 @@ function mainInner() {
 
     removeChilds(divButton);
 
-    const start = createChild(divButton, 'button', 'button', 'Start', 'button', 'hero--button');
+    const start = createChild(divButton, 'button', 'button', 'hero--button', 'button', 'Start');
     start.addEventListener('click', startChronometer);
 
-    const stop = createChild(divButton, 'button', 'button', 'Stop', 'button', 'hero--button');
+    const stop = createChild(divButton, 'button', 'button', 'hero--button', 'button', 'Stop');
     stop.addEventListener('click', stopChronometer);
 
-    const reset = createChild(divButton, 'button', 'button', 'Reset', 'button', 'hero--button');
+    const reset = createChild(divButton, 'button', 'button', 'hero--button', 'button', 'Reset');
     reset.addEventListener('click', resetChronometer);
 }
 
@@ -123,23 +123,23 @@ function timer() {
     divButton.appendChild(form);
     form.onsubmit = function() {startTimer()};
 
-    createChild(form, 'input', 'number', 'Insert minutes', 'inputMinutes');
-    createChild(form, 'input', 'number', 'Insert seconds', 'inputSeconds');
+    createChild(form, 'input', 'number','inputMinutes', 'input', 'Insert minutes');
+    createChild(form, 'input', 'number', 'inputSeconds', 'input', 'Insert seconds');
 
-    const start = createChild(form, 'button', 'button', 'Start', 'button', 'hero--button');
+    const start = createChild(form, 'button', 'button', 'hero--button', 'button', 'Start');
     start.addEventListener('click', startTimer);
 
-    const stop = createChild(form, 'button', 'button', 'Stop', 'button', 'hero--button');
+    const stop = createChild(form, 'button', 'button', 'hero--button', 'button', 'Stop');
     stop.addEventListener('click', stopChronometer);
 
-    const reset = createChild(form, 'button', 'button', 'Reset', 'button', 'hero--button');
+    const reset = createChild(form, 'button', 'button', 'hero--button', 'button', 'Reset');
     reset.addEventListener('click', resetChronometer);
 
     const div = document.createElement('div');
     div.classList.add('pomodoro--container');
     divButton.appendChild(div);
 
-    const pomodoro = createChild(div, 'button', 'button', 'Pomodoro', 'button', 'pomodoro');
+    const pomodoro = createChild(div, 'button', 'button', 'pomodoro', 'button', 'Pomodoro');
     pomodoro.addEventListener('click', () => {
         document.getElementsByClassName('inputMinutes')[0].value = 5;
         document.getElementsByClassName('inputSeconds')[0].value = 0;
@@ -149,16 +149,24 @@ function timer() {
     timerSeconds = document.getElementById('seconds');
 }
 
-function createChild(parent, elementType, type, title, className, className2 = null) {
+function createChild(parent, elementType, className, className2 = null, type = null, title = null) {
     const element = document.createElement(elementType);
     parent.appendChild(element);
-    element.type = type;
     addClassName(element, className, className2);
+    
+    if(title === null) {
+        return element;
+    }
+    
     if(type === 'button') {
+        element.type = type;
         addTextContent(element, title);
         return element;
-    } else {
+    } if(type === 'input') {
+        element.type = type;
         addPlaceholder(element, title);
+    } if(elementType === 'div') {
+        addInnerHTML(element, title);
     }
 }
 
@@ -175,6 +183,10 @@ function addTextContent(element, textContent) {
 
 function addPlaceholder(element, placeholder) {
     element.placeholder = placeholder;
+}
+
+function addInnerHTML(element, inner) {
+    element.innerHTML = inner;
 }
 
 const removeChilds = (parent) => {
@@ -203,42 +215,27 @@ function createContainerAlarm(container) {
     clock.classList.add('clock');
     container.appendChild(clock);
 
-    const outerClock = document.createElement('div');
-    outerClock.classList.add('outer-clock-face');
-    clock.appendChild(outerClock);
+    const outerClock = createChild(clock, 'div', 'outer-clock-face');
+    const innerClock = createChild(outerClock, 'div', 'inner-clock');
 
-    const markingOne = document.createElement('div');
-    markingOne.classList.add('marking', 'marking--one');
-    outerClock.appendChild(markingOne);
-
-    const makingTwo = document.createElement('div');
-    makingTwo.classList.add('marking', 'marking-two');
-    outerClock.appendChild(makingTwo);
-
-    const markingThree = document.createElement('div');
-    markingThree.classList.add('marking', 'marking-three');
-    outerClock.appendChild(markingThree);
-
-    const markingFour = document.createElement('div');
-    markingFour.classList.add('marking', 'marking-four');
-    outerClock.appendChild(markingFour);
-
-    const innerClock = document.createElement('div');
-    innerClock.classList.add('inner-clock');
-    outerClock.appendChild(innerClock);
-
-    const hourHand = document.createElement('div');
-    hourHand.classList.add('hand', 'hour-hand');
-    innerClock.appendChild(hourHand);
-
-    const minuteHand = document.createElement('div');
-    minuteHand.classList.add('hand', 'minute-hand');
-    innerClock.appendChild(minuteHand);
-
-    const secondsHand = document.createElement('div');
-    secondsHand.classList.add('hand', 'second-hand');
-    innerClock.appendChild(secondsHand);
-
+    createChild(innerClock, 'div', 'hand', 'hour-hand');
+    createChild(innerClock, 'div', 'hand', 'minute-hand');
+    createChild(innerClock, 'div', 'hand', 'second-hand');
+    createChild(innerClock, 'div', 'hand', 'alarm-hand');
+    createChild(innerClock, 'div', 'hand', 'middle');
+    createChild(innerClock, 'div', 'hours', 'one', null, '1');
+    createChild(innerClock, 'div', 'hours', 'two', null, '2');
+    createChild(innerClock, 'div', 'hours', 'three', null, '3');
+    createChild(innerClock, 'div', 'hours', 'four', null, '4');
+    createChild(innerClock, 'div', 'hours', 'five', null, '5');
+    createChild(innerClock, 'div', 'hours', 'six', null, '6');
+    createChild(innerClock, 'div', 'hours', 'seven', null, '7');
+    createChild(innerClock, 'div', 'hours', 'eight', null, '8');
+    createChild(innerClock, 'div', 'hours', 'nine', null, '9');
+    createChild(innerClock, 'div', 'hours', 'ten', null, '10');
+    createChild(innerClock, 'div', 'hours', 'eleven', null, '11');
+    createChild(innerClock, 'div', 'hours', 'twelve', null, '12');
+  
 }
 
 function tranformHandles(seconds, minutes, hour) {
