@@ -214,28 +214,40 @@ function createContainerAlarm(container) {
     const clock = document.createElement('div');
     clock.classList.add('clock');
     container.appendChild(clock);
-
+    
     const outerClock = createChild(clock, 'div', 'outer-clock-face');
     const innerClock = createChild(outerClock, 'div', 'inner-clock');
-
+    
     createChild(innerClock, 'div', 'hand', 'hour-hand');
     createChild(innerClock, 'div', 'hand', 'minute-hand');
     createChild(innerClock, 'div', 'hand', 'second-hand');
     createChild(innerClock, 'div', 'hand', 'alarm-hand');
     createChild(innerClock, 'div', 'hand', 'middle');
-    createChild(innerClock, 'div', 'hours', 'one', null, '1');
-    createChild(innerClock, 'div', 'hours', 'two', null, '2');
-    createChild(innerClock, 'div', 'hours', 'three', null, '3');
-    createChild(innerClock, 'div', 'hours', 'four', null, '4');
-    createChild(innerClock, 'div', 'hours', 'five', null, '5');
-    createChild(innerClock, 'div', 'hours', 'six', null, '6');
-    createChild(innerClock, 'div', 'hours', 'seven', null, '7');
-    createChild(innerClock, 'div', 'hours', 'eight', null, '8');
-    createChild(innerClock, 'div', 'hours', 'nine', null, '9');
-    createChild(innerClock, 'div', 'hours', 'ten', null, '10');
-    createChild(innerClock, 'div', 'hours', 'eleven', null, '11');
-    createChild(innerClock, 'div', 'hours', 'twelve', null, '12');
-  
+
+    {
+      const numbersName = [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten",
+        "eleven",
+        "twelve",
+      ];
+
+      let i = 0;
+
+      // Create clock numbers
+      while (i <= numbersName.length - 1) {
+        createChild(innerClock, "div", "hours", numbersName[i], null, i + 1);
+        i++;
+      }
+    }
 }
 
 function tranformHandles(seconds, minutes, hour) {
@@ -257,4 +269,3 @@ function getDegreesFromTime(value, range) {
     // Simple rule of three
     return (value / range) * 360 + 90;
 }
-
