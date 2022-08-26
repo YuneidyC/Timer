@@ -274,6 +274,10 @@ function scheduleAlarm(hourMinutes) {
 }
 
 function executeAlarm() {
+    const music = new Audio('../alarm.wav')
+    music.loop = false;
+    music.volume = 0.04;
+    music.play();
     alert(`Time's up`);
 }
 
