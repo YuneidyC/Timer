@@ -120,9 +120,8 @@ function timer() {
         startTimer();
     };
 
-    createChild(form, 'input', 'number', 'inputMinutes', 'input', 'Insert minutes');
-
-    createChild(form, 'input', 'number', 'inputSeconds', 'input', 'Insert seconds');
+    createInput(form, 'input', 'input', 'number', 'Insert minutes');
+    createInput(form, 'input', 'input', 'number', 'Insert seconds');
 
     createButton(form, 'button', 'button', 'hero--button', 'button', 'Start', startTimer);
     createButton(form, 'button', 'button', 'hero--button', 'button', 'Stop', stopChronometer);
@@ -134,8 +133,8 @@ function timer() {
 
     const pomodoro = createChild(div, 'button', 'button', 'pomodoro', 'button', 'Pomodoro');
     pomodoro.addEventListener('click', () => {
-        document.getElementsByClassName('inputMinutes')[0].value = 5;
-        document.getElementsByClassName('inputSeconds')[0].value = 0;
+        document.getElementsByClassName('input-minutes')[0].value = 5;
+        document.getElementsByClassName('input-seconds')[0].value = 0;
     });
 
     timerMinutes = document.getElementById('minutes');
@@ -156,12 +155,12 @@ function createChild(parent, elementType, className, className2 = null, type = n
         return element;
     }
 
-    if (type === 'button') {
+    if (elementType === 'button') {
         element.type = type;
         addTextContent(element, title);
         return element;
     }
-    if (type === 'input') {
+    if (elementType === 'input') {
         element.type = type;
         addPlaceholder(element, title);
     }
@@ -198,8 +197,10 @@ const removeChilds = (parent) => {
 // Alarm
 function clearScreenAlarm() {
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Alarm';
+
     const divButton = document.getElementsByClassName('hero--buttons')[0];
     const time = document.getElementsByClassName('hero--time')[0];
+
     removeChilds(time);
     removeChilds(divButton);
     createContainerAlarm(divButton);
@@ -208,6 +209,10 @@ function clearScreenAlarm() {
     updateClockHandles();
 
     setInterval(updateClockHandles, 1000);
+}
+
+function createInput(parent, elementType, className, type, title) {
+    createChild(parent, elementType, className, 'input-minutes', type, title);
 }
 
 function createContainerAlarm(container) {
@@ -224,6 +229,8 @@ function createContainerAlarm(container) {
     createChild(innerClock, 'div', 'hand', 'alarm-hand');
     createChild(innerClock, 'div', 'hand', 'middle');
 
+    const alarmHand = document.getElementsByClassName('alarm-hand')[0];
+
     {
         const numbersName = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
 
@@ -235,6 +242,26 @@ function createContainerAlarm(container) {
             i++;
         }
     }
+
+    createChild(container, 'div', 'input-container');
+    const inputContainer = document.getElementsByClassName('input-container')[0];
+
+    createInput(inputContainer, 'input', 'input', 'number', 'Insert hour');
+    createInput(inputContainer, 'input', 'input', 'number', 'Insert minutes');
+
+    const saveButton = createChild(container, 'button', 'button', 'alarm-button', 'button', 'Save');
+    saveButton.addEventListener('click', function() {
+        getTimeAlarm(alarmHand);
+    });
+}
+
+function getTimeAlarm(alarmHand) {
+    let hour = parseInt(document.getElementsByTagName('input')[0].value);
+    let minutes = parseInt(document.getElementsByTagName('input')[1].value);
+
+    const alarm = getDegreesFromTime((minutes + (hour * 60)), 60, 30);
+
+    alarmHand.style.transform = `rotate(${alarm}deg)`;
 }
 
 function tranformHandles(seconds, minutes, hour) {
@@ -252,7 +279,7 @@ function updateClockHandles() {
     tranformHandles(now.getSeconds(), now.getMinutes(), now.getHours());
 }
 
-function getDegreesFromTime(value, range) {
+function getDegreesFromTime(value, range, degrees = 360) {
     // Simple rule of three
-    return (value / range) * 360 + 90;
+    return (value / range) * degrees + 90;
 }
