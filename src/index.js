@@ -209,7 +209,6 @@ function clearScreenAlarm() {
     updateClockHandles();
 
     setInterval(updateClockHandles, 1000);
-
 }
 
 function createInput(parent, elementType, className, type, title) {
@@ -251,7 +250,7 @@ function createContainerAlarm(container) {
     createInput(inputContainer, 'input', 'input', 'number', 'Insert minutes');
 
     const saveButton = createChild(container, 'button', 'button', 'alarm-button', 'button', 'Save');
-    saveButton.addEventListener('click', function() {
+    saveButton.addEventListener('click', function () {
         scheduleAlarm(getAlarmTime(alarmHand));
     });
 }
@@ -266,7 +265,7 @@ function scheduleAlarm(hourMinutes) {
 
     let alarm = alarmDate.getTime() - dateNow;
 
-    if(alarm < 0) {
+    if (alarm < 0) {
         // If the alarm time is in the past today, schedule it for tomorrow
         alarm += 86400000;
     }
@@ -274,7 +273,7 @@ function scheduleAlarm(hourMinutes) {
     setTimeout(executeAlarm, alarm);
 }
 
-function executeAlarm () {
+function executeAlarm() {
     alert(`Time's up`);
 }
 
@@ -282,7 +281,7 @@ function getAlarmTime(alarmHand) {
     let hour = parseInt(document.getElementsByTagName('input')[0].value);
     let minutes = parseInt(document.getElementsByTagName('input')[1].value);
 
-    const alarm = getDegreesFromTime((minutes + (hour * 60)), 60, 30);
+    const alarm = getDegreesFromTime(minutes + hour * 60, 60, 30);
 
     alarmHand.style.transform = `rotate(${alarm}deg)`;
 
