@@ -105,7 +105,9 @@ const startTimer = function startTimer() {
 function timer() {
     stopChronometer();
     resetStopwatch();
+
     document.getElementById('chronometer-button').disabled = false;
+
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Timer';
     document.getElementById('timer-button').disabled = true;
 
@@ -120,7 +122,12 @@ function timer() {
         startTimer();
     };
 
-    createInput(form, 'input', 'input', 'number', 'Insert minutes');
+    const inputMinutes = createInput(form, 'input', 'input', 'number', 'Insert minutes');
+    const toggleMinutes = createChild(inputMinutes, 'span', 'toggle', null, null, null);
+    toggleMinutes.innerHTML = '60m';
+    toggleMinutes.classList.toggle('show');
+
+
     createInput(form, 'input', 'input', 'number', 'Insert seconds');
 
     createButton(form, 'button', 'button', 'hero--button', 'button', 'Start', startTimer);
@@ -155,18 +162,19 @@ function createChild(parent, elementType, className, className2 = null, type = n
         return element;
     }
 
+    if (elementType === 'div') {
+        addInnerHTML(element, title);
+    }
+
     if (elementType === 'button') {
         element.type = type;
         addTextContent(element, title);
-        return element;
     }
     if (elementType === 'input') {
         element.type = type;
         addPlaceholder(element, title);
     }
-    if (elementType === 'div') {
-        addInnerHTML(element, title);
-    }
+    return element;
 }
 
 function addClassName(element, className, className2) {
@@ -212,7 +220,7 @@ function clearScreenAlarm() {
 }
 
 function createInput(parent, elementType, className, type, title) {
-    createChild(parent, elementType, className, 'input-minutes', type, title);
+    return createChild(parent, elementType, className, 'input-minutes', type, title);
 }
 
 function createContainerAlarm(container) {
