@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #808080;
+    --bg-color: #1a1717;
 }
 
 * {
@@ -16,6 +16,8 @@ body {
     background-color: var(--bg-color);
     font-family: 'Roboto', sans-serif;
     color: white;
+    width: 100%;
+    height: 100vh;
 }
 
 header {
@@ -100,23 +102,20 @@ button:hover {
 .clock {
     width: 30rem;
     height: 30rem;
-    border: 7px solid rgb(29, 28, 28);
-    box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
-        inset 4px 4px 10px rgba(0, 0, 0, 0.5),
-        inset -4px -4px 10px rgba(67, 67, 67, 0.5),
-        inset 4px 4px 10px rgba(0, 0, 0, 0.3);
+    border: 7px solid rgb(70, 68, 68);
     border-radius: 50%;
     margin: 30px auto;
     position: relative;
     padding: 2rem;
+    background-color: white;
 }
+
 
 .outer-clock-face {
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 100%;
-    background-color: gray;
 
     overflow: hidden;
 }
@@ -132,34 +131,13 @@ button:hover {
     position: absolute;
     width: 5px;
     height: 100%;
-    background: gray;
     z-index: -1;
     left: 49%;
 }
 
-.inner-clock-face {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    background: darkgray;
-    border-radius: 100%;
-    z-index: 1;
-}
-
-.inner-clock-face::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 16px;
-    height: 16px;
-    border-radius: 18px;
-    margin-left: -9px;
-    margin-top: -6px;
-    background: salmon;
-    z-index: 11;
+.inner-clock {
+    width: 100%;
+    height: 100%;
 }
 
 .hand {
@@ -188,7 +166,7 @@ button:hover {
 .hand.minute-hand {
     height: 3px;
     z-index: 10;
-    width: 40%;
+    width: 44%;
     border: 1px solid rgb(29, 28, 28);
     box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
         inset 4px 4px 10px rgba(0, 0, 0, 0.5),
@@ -197,8 +175,8 @@ button:hover {
 
 .hand.second-hand {
     background: gray;
-    width: 45%;
-    height: 2px;
+    width: 48%;
+    height: 1px;
     border: 1px solid rgb(29, 28, 28);
     box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
         inset 4px 4px 10px rgba(0, 0, 0, 0.5),
@@ -207,8 +185,8 @@ button:hover {
 
 .hand.alarm-hand {
     background: red;
-    width: 20%;
-    height: 1px;
+    width: 50px;
+    height: 2px;
     z-index: 10;
 }
 
@@ -230,65 +208,68 @@ button:hover {
     overflow: hidden;
     z-index: 10;
     transform-origin: 100%;
+    font-size: 1.7rem;
+    font-weight: 700;
 }
 
 .one {
-    top: 7%;
-    right: 23%;
+    top: 6%;
+    right: 22%;
 }
 
 .two {
-    top: 25%;
+    top: 24%;
     right: 6%;
 }
 
 .three {
-    top: 48%;
-    right: 0;
+    top: 46%;
+    right: -2%;
 }
 
 .four {
-    top: 71%;
-    right: 6%;
+    top: 70%;
+    right: 5%;
 }
 
 .five {
-    top: 89%;
+    top: 87%;
     right: 22%;
 }
 
 .six {
-    bottom: -4%;
+    bottom: -1%;
     right: 46%;
 }
 
 .seven {
-    top: 89%;
-    right: 71%;
+    top: 86%;
+    right: 69%;
 }
 
 .eight {
-    top: 71%;
+    top: 70%;
     right: 86%;
 }
 
 .nine {
-    left: 0%;
-    top: 48%;
+    left: -2%;
+    top: 46%;
 }
 
 .ten {
-    top: 25%;
-    right: 87%;
+    top: 24%;
+    right: 86%;
 }
 
 .eleven {
-    top: 7%;
+    top: 6%;
     right: 70%;
 }
 
 .twelve {
     right: 46%;
+    top: -1%;
 }
 
 .hero--buttons .input-container {
