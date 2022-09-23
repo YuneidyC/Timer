@@ -81,6 +81,7 @@ const startTimer = function startTimer() {
     currentButton.disabled = true;
     let minutes = parseInt(document.getElementsByTagName('input')[0].value);
 
+    // HERE
     if (minutes.length === "") {
         minutes.getElementsByClassName('input-minutes').innerHTML = "* 60m";
     }
@@ -183,14 +184,32 @@ const removeChilds = (parent) => {
 
 // Alarm
 function clearScreenAlarm() {
+
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Alarm';
 
-    const divButton = document.getElementsByClassName('hero--buttons')[0];
-    const time = document.getElementsByClassName('hero--time')[0];
+    changeDisable('Alarm');
 
-    removeChilds(time);
-    removeChilds(divButton);
-    createContainerAlarm(divButton);
+    if (document.getElementsByClassName('hero--input')[0]) {
+        removeChilds(document.getElementsByClassName('hero--input')[0]);
+        document.getElementsByClassName('hero--input')[0].remove();
+    }
+
+    if (document.getElementsByClassName('pomodoro--container')[0]) {
+        removeChilds(document.getElementsByClassName('pomodoro--container')[0]);
+        document.getElementsByClassName('pomodoro--container')[0].remove();
+    }
+
+    if (document.getElementsByClassName('hero--buttons')[0]) {
+        removeChilds(document.getElementsByClassName('hero--buttons')[0]);
+        document.getElementsByClassName('hero--buttons')[0].remove();
+    }
+
+    if (document.getElementsByClassName('hero--time')[0]) {
+        removeChilds(document.getElementsByClassName('hero--time')[0]);
+        document.getElementsByClassName('hero--time')[0].remove();
+    }
+
+    createContainerAlarm(document.getElementsByClassName('hero--container')[0]);
 
     // Make sure that it's updated before the first interval tick
     updateClockHandles();
@@ -198,8 +217,8 @@ function clearScreenAlarm() {
     setInterval(updateClockHandles, 1000);
 }
 
-function createInput(parent, elementType, className, type, title) {
-    return createChild(parent, elementType, className, 'input-minutes', type, title);
+function createInput(parent, elementType, className, className2, type, title) {
+    return createChild(parent, elementType, className, className2, type, title);
 }
 
 function createContainerAlarm(container) {
@@ -234,10 +253,19 @@ function createContainerAlarm(container) {
     createChild(container, 'div', 'input-container');
     const inputContainer = document.getElementsByClassName('input-container')[0];
 
-    createInput(inputContainer, 'input', 'input', 'number', 'Insert hour');
-    createInput(inputContainer, 'input', 'input', 'number', 'Insert minutes');
+    createInput(inputContainer, 'input', 'input', 'input-hour', 'number', 'Insert hour');
+    document.getElementsByClassName('input-hour')[0].min = 1;
+    document.getElementsByClassName('input-hour')[0].max = 24;
 
-    const saveButton = createChild(container, 'button', 'button', 'alarm-button', 'button', 'Save');
+    createChild(document.getElementsByClassName('input-container')[0], 'div', 'message', 'message-hour');
+
+    createInput(inputContainer, 'input', 'input', 'input-minutes', 'number', 'Insert minutes');
+    document.getElementsByClassName('input-minutes')[0].min = 1;
+    document.getElementsByClassName('input-minutes')[0].max = 60;
+
+    createChild(document.getElementsByClassName('input-container')[0], 'div', 'message', 'message-minutes');
+
+    const saveButton = createChild(inputContainer, 'button', 'button', 'alarm-button', 'button', 'Save');
     saveButton.addEventListener('click', function () {
         scheduleAlarm(getAlarmTime(alarmHand));
     });
@@ -285,10 +313,12 @@ function tranformHandles(seconds, minutes, hour) {
     const minHand = document.querySelector('.minute-hand');
     const secondHand = document.querySelector('.second-hand');
 
+    if (secondHand && minHand && hourHand) {
         secondHand.style.transform = `rotate(${getDegreesFromTime(seconds, 60)}deg)`;
         minHand.style.transform = `rotate(${getDegreesFromTime(minutes, 60)}deg)`;
         hourHand.style.transform = `rotate(${getDegreesFromTime(hour, 12)}deg)`;
     }
+}
 
 function updateClockHandles() {
     const now = new Date();
