@@ -17,7 +17,7 @@ function mainInner() {
 
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Chronometer';
 
-    changeDisable('Chronometer');
+    updateDisabledPropNavButtons('Chronometer');
 
     if (document.getElementsByClassName('clock')[0]) {
         removeClock();
@@ -114,7 +114,7 @@ function createTimer() {
 
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Timer';
 
-    changeDisable('Timer');
+    updateDisabledPropNavButtons('Timer');
 
     createContainerChronometerTimer(document.getElementsByClassName('hero--title')[0].innerHTML);
 
@@ -180,7 +180,7 @@ function clearScreenAlarm() {
 
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Alarm';
 
-    changeDisable('Alarm');
+    updateDisabledPropNavButtons('Alarm');
 
     if (document.getElementsByClassName('hero--input')[0]) {
         removeChilds(document.getElementsByClassName('hero--input')[0]);
@@ -462,7 +462,7 @@ function removeInputsClock() {
     document.getElementsByClassName('input-container')[0].remove();
 }
 
-function changeDisable(innerHtml) {
+function updateDisabledPropNavButtons(innerHtml) {
 
     if (innerHtml === 'Chronometer') {
         changeDisabledButtons('chronometer-button');
