@@ -1,0 +1,21 @@
+{
+    "name": "timer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/YuneidyC/Timer.git"
+    },
+    "author": "YuneidyC",
+    "license": "ISC",
+    "devDependencies": {
+        "eslint": "^8.23.1",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.26.0",
+        "jest": "^29.0.3"
+    }
+}
