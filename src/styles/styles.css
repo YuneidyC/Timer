@@ -106,8 +106,6 @@ button:hover {
     margin: 15px;
 }
 
-/*ALARM*/
-
 .clock {
     width: 30rem;
     height: 30rem;
@@ -118,7 +116,6 @@ button:hover {
     padding: 2rem;
     background-color: white;
 }
-
 
 .outer-clock-face {
     position: relative;

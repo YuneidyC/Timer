@@ -74,17 +74,11 @@ function resetChronometer() {
     currentButton.disabled = false;
 }
 
-//TIMER
 const startTimer = function startTimer() {
     event.preventDefault();
     currentButton = event.target;
     currentButton.disabled = true;
     let minutes = parseInt(document.getElementsByTagName('input')[0].value);
-
-    // HERE
-    if (minutes.length === "") {
-        minutes.getElementsByClassName('input-minutes').innerHTML = "* 60m";
-    }
 
     let seconds = parseInt(document.getElementsByTagName('input')[1].value);
 
@@ -182,7 +176,6 @@ const removeChilds = (parent) => {
     }
 };
 
-// Alarm
 function clearScreenAlarm() {
 
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Alarm';
@@ -290,7 +283,7 @@ function scheduleAlarm(hourMinutes) {
 }
 
 function executeAlarm() {
-    const music = new Audio('../alarm.wav')
+    const music = new Audio('./assets/alarm.wav')
     music.loop = false;
     music.volume = 0.04;
     music.play();
