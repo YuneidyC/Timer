@@ -1,57 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Timer</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;500;700&family=Lato:wght@100;300;700&family=Roboto:wght@300;400;700&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="./src/styles/styles.css" />
-    </head>
-    <body>
-        <header>
-            <nav class="header--nav">
-                <ul>
-                    <li>
-                        <button class="button header--button" id="chronometer-button" title="Chronometer" disabled>
-                            <img
-                                src="https://img.icons8.com/external-flat-icons-pack-pongsakorn-tan/64/000000/external-chronometer-soccer-flat-flat-icons-pack-pongsakorn-tan.png"
-                            />
-                        </button>
-                    </li>
-                    <li>
-                        <button class="button header--button" id="timer-button" title="Timer">
-                            <img src="https://img.icons8.com/arcade/64/40C057/experimental-timer-arcade.png" />
-                        </button>
-                    </li>
-                    <li>
-                        <button class="button header--button" id="alarm-button" title="Alarm">
-                            <img
-                                src="https://img.icons8.com/external-freebies-bomsymbols-/91/000000/external-alarm-general-office-freebies-bomsymbols--2.png"
-                            />
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main class="hero" id="principal">
-            <div class="hero--container">
-                <h1 class="hero--title">Chronometer</h1>
-                <div class="hero--time">
-                    <p id="time"><span id="minutes">00</span>:<span id="seconds">00</span></p>
-                </div>
-                <div class="hero--buttons">
-                    <button class="button hero--button" id="chro-button" onclick="startChronometer()" type="button">Start</button>
-                    <button class="button hero--button" id="chro-button" onclick="stopChronometer()" type="button">Stop</button>
-                    <button class="button hero--button" id="chro-button" onclick="resetChronometer()" type="button">Reset</button>
-                </div>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;500;700&family=Lato:wght@100;300;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./src/styles/styles.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="header--nav">
+            <ul>
+                <li>
+                    <button class="button header--button" id="chronometer-button" title="Chronometer" disabled>
+                        <img
+                            src="https://img.icons8.com/external-flat-icons-pack-pongsakorn-tan/64/000000/external-chronometer-soccer-flat-flat-icons-pack-pongsakorn-tan.png" />
+                    </button>
+                </li>
+                <li>
+                    <button class="button header--button" id="timer-button" title="Timer">
+                        <img src="https://img.icons8.com/arcade/64/40C057/experimental-timer-arcade.png" />
+                    </button>
+                </li>
+                <li>
+                    <button class="button header--button" id="alarm-button" title="Alarm">
+                        <img
+                            src="https://img.icons8.com/external-freebies-bomsymbols-/91/000000/external-alarm-general-office-freebies-bomsymbols--2.png" />
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="hero" id="principal">
+        <div class="hero--container">
+            <h1 class="hero--title">Chronometer</h1>
+            <div class="hero--time">
+                <p id="time">
+                    <span id="minutes">00</span>
+                    <span id="colon">:</span>
+                    <span id="seconds">00</span>
+                </p>
             </div>
-        </main>
-        <script src="./src/index.js"></script>
-    </body>
+            <div class="hero--buttons">
+                <button class="button hero--button" id="chro-button" onclick="startChronometer()"
+                    type="button">Start</button>
+                <button class="button hero--button" id="chro-button" onclick="stopChronometer()"
+                    type="button">Stop</button>
+                <button class="button hero--button" id="chro-button" onclick="resetChronometer()"
+                    type="button">Reset</button>
+            </div>
+        </div>
+    </main>
+    <script src="./src/index.js"></script>
+</body>
+
 </html>
