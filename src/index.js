@@ -247,14 +247,14 @@ function createContainerAlarm(container) {
     const inputContainer = document.getElementsByClassName('input-container')[0];
 
     createInput(inputContainer, 'input', 'input', 'input-hour', 'number', 'Insert hour');
-    document.getElementsByClassName('input-hour')[0].min = 1;
-    document.getElementsByClassName('input-hour')[0].max = 24;
+    document.getElementsByClassName('input-hour')[0].min = 0;
+    document.getElementsByClassName('input-hour')[0].max = 23;
 
     createChild(document.getElementsByClassName('input-container')[0], 'div', 'message', 'message-hour');
 
     createInput(inputContainer, 'input', 'input', 'input-minutes', 'number', 'Insert minutes');
-    document.getElementsByClassName('input-minutes')[0].min = 1;
-    document.getElementsByClassName('input-minutes')[0].max = 60;
+    document.getElementsByClassName('input-minutes')[0].min = 0;
+    document.getElementsByClassName('input-minutes')[0].max = 59;
 
     createChild(document.getElementsByClassName('input-container')[0], 'div', 'message', 'message-minutes');
 
@@ -385,8 +385,8 @@ function createTimerContainer() {
 
     createInput(inputContainer, 'input', 'input', 'input-minutes', 'number', 'Insert minutes');
     createInput(inputContainer, 'input', 'input', 'input-seconds', 'number', 'Insert seconds');
-    document.getElementsByClassName('input-seconds')[0].min = 1;
-    document.getElementsByClassName('input-seconds')[0].max = 60;
+    document.getElementsByClassName('input-seconds')[0].min = 0;
+    document.getElementsByClassName('input-seconds')[0].max = 59;
 
     createButtonsContainer(startTimer);
 
