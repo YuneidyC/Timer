@@ -384,7 +384,10 @@ function createTimerContainer() {
     document.getElementsByClassName('hero--container')[0].appendChild(inputContainer);
 
     createInput(inputContainer, 'input', 'input', 'input-minutes', 'number', 'Insert minutes');
+    createChild(document.getElementsByClassName('hero--input')[0], 'div', 'message', 'message-minutes');
+
     createInput(inputContainer, 'input', 'input', 'input-seconds', 'number', 'Insert seconds');
+    createChild(document.getElementsByClassName('hero--input')[0], 'div', 'message', 'message-seconds');
     document.getElementsByClassName('input-seconds')[0].min = 0;
     document.getElementsByClassName('input-seconds')[0].max = 59;
 
@@ -468,8 +471,10 @@ function updateDisabledPropNavButtons(actButton) {
     for (let i = 0; i < buttonsNav.length; i++) {
         if (actButton === buttonsNav[i]) {
             document.getElementById(actButton).disabled = true;
+            document.getElementById(actButton).style.cursor = "default";
         } else {
             document.getElementById(buttonsNav[i]).disabled = false;
+            document.getElementById(buttonsNav[i]).style.cursor = "pointer";
         }
     }
 }

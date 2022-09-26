@@ -72,13 +72,16 @@ main {
     border: transparent;
     text-align: center;
     margin: 5px;
-    cursor: pointer;
     height: 20px;
     width: 40px;
 }
 
 button:hover {
     cursor: pointer;
+}
+
+#chronometer-button {
+    cursor: default;
 }
 
 .hero--button:disabled {
