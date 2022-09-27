@@ -38,6 +38,8 @@ function resetStopwatch() {
     minutesValue = 0;
     timerMinutes.textContent = '00';
     timerSeconds.textContent = '00';
+
+    removeTimesUp(document.getElementsByClassName('time-up')[0]);
 }
 
 function startChronometer() {
@@ -63,6 +65,7 @@ function stopChronometer() {
         currentButton.disabled = false;
     }
 
+    removeTimesUp(document.getElementsByClassName('time-up')[0]);
     clearInterval(currentInterval);
 }
 
@@ -74,6 +77,14 @@ function resetChronometer() {
     timerSeconds.textContent = '00';
 
     currentButton.disabled = false;
+
+    removeTimesUp(document.getElementsByClassName('time-up')[0]);
+}
+
+function removeTimesUp(timesUp) {
+    if (timesUp) {
+        timesUp.remove();
+    }
 }
 
 const startTimer = function startTimer() {
@@ -81,15 +92,13 @@ const startTimer = function startTimer() {
     currentButton = event.target;
     currentButton.disabled = true;
 
-    if (document.getElementsByClassName('time-up')[0]) {
-        document.getElementsByClassName('time-up')[0].remove();
-    }
+    removeTimesUp(document.getElementsByClassName('time-up')[0])
 
     if (document.getElementsByClassName('message-seconds')[0]) {
         document.getElementsByClassName('message-seconds')[0].innerHTML = "";
     }
 
-    if ((minutesValue || secondsValue) === 00) {
+    if ((minutesValue && secondsValue) === 00) {
         let minutes = parseInt(document.getElementsByTagName('input')[0].value);
         let seconds = parseInt(document.getElementsByTagName('input')[1].value);
 
@@ -99,12 +108,10 @@ const startTimer = function startTimer() {
             resetChronometer();
             return;
         } else {
-            minutes = minutesOrSeconds[0];
-            seconds = minutesOrSeconds[1];
+            timerMinutes.textContent = minutesOrSeconds[0];
+            timerSeconds.textContent = minutesOrSeconds[1];
         };
 
-        timerMinutes.textContent = minutes;
-        timerSeconds.textContent = seconds;
         secondsValue = seconds;
         minutesValue = minutes;
     }
@@ -121,9 +128,11 @@ const startTimer = function startTimer() {
         if (parseInt(minutesValue) === 0 && parseInt(secondsValue) === 0) {
             const container = document.getElementsByClassName('hero--time')[0];
             const title = document.createElement('h2');
-            title.classList.add = 'time-up';
+            title.classList.add('time-up');
             title.textContent = `Time's up!`;
             container.appendChild(title);
+
+            currentButton.disabled = false;
             clearInterval(currentInterval);
         }
 
@@ -527,10 +536,8 @@ function checkMinutesAndSeconds(minutes, seconds) {
 
 function checkMinutesSecondsLength(minutesOrSeconds) {
     if ((minutesOrSeconds).toString().length < 2) {
-        minutesOrSeconds = ("0" + minutesOrSeconds).slice(-2);
+        return formatValue(minutesOrSeconds);
     }
-
-    return minutesOrSeconds;
 }
 
 function mbar(msg) {
