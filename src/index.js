@@ -113,15 +113,16 @@ const startTimer = function startTimer() {
         secondsValue -= 1;
         if (secondsValue === -1) {
             secondsValue = 59;
-            minutesValue -= 1;
+            if (minutesValue > 0) {
+                minutesValue -= 1;
+            }
         }
 
-        if (minutesValue === 0 && secondsValue === 0) {
+        if (parseInt(minutesValue) === 0 && parseInt(secondsValue) === 0) {
             const container = document.getElementsByClassName('hero--time')[0];
             const title = document.createElement('h2');
             title.classList.add = 'time-up';
             title.textContent = `Time's up!`;
-            // currentButton.disabled = false;
             container.appendChild(title);
             clearInterval(currentInterval);
         }
