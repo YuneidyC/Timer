@@ -294,8 +294,27 @@ button:hover {
 }
 
 .message {
-    width: 50px;
+    width: 170px;
     height: 50px;
     color: red;
     position: absolute;
+    font-size: 13px;
+    margin: 0 auto;
+}
+
+.mbar {
+    padding: 5px; margin: 5px;
+    width: 330px;
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    background: #ffe7f4;
+    border: 1px solid #ff6a6a;
+    font-size: 13px;
+    color: black;
+}
+
+.close {
+    width: 15px;
+    margin-left: 20px;
 }

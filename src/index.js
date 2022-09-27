@@ -12,6 +12,7 @@ document.getElementById('chronometer-button').addEventListener('click', mainInne
 document.getElementById('alarm-button').addEventListener('click', clearScreenAlarm);
 
 function mainInner() {
+    resetChronometer();
     resetStopwatch();
     clearInterval(currentInterval);
 
@@ -61,6 +62,7 @@ function stopChronometer() {
     if (currentButton) {
         currentButton.disabled = false;
     }
+
     clearInterval(currentInterval);
 }
 
@@ -78,14 +80,34 @@ const startTimer = function startTimer() {
     event.preventDefault();
     currentButton = event.target;
     currentButton.disabled = true;
-    let minutes = parseInt(document.getElementsByTagName('input')[0].value);
 
-    let seconds = parseInt(document.getElementsByTagName('input')[1].value);
+    if (document.getElementsByClassName('time-up')[0]) {
+        document.getElementsByClassName('time-up')[0].remove();
+    }
 
-    timerMinutes.textContent = minutes;
-    timerSeconds.textContent = seconds;
-    secondsValue = seconds;
-    minutesValue = minutes;
+    if (document.getElementsByClassName('message-seconds')[0]) {
+        document.getElementsByClassName('message-seconds')[0].innerHTML = "";
+    }
+
+    if ((minutesValue || secondsValue) === 00) {
+        let minutes = parseInt(document.getElementsByTagName('input')[0].value);
+        let seconds = parseInt(document.getElementsByTagName('input')[1].value);
+
+        let minutesOrSeconds = checkMinutesAndSeconds(minutes, seconds);
+
+        if (!minutesOrSeconds) {
+            resetChronometer();
+            return;
+        } else {
+            minutes = minutesOrSeconds[0];
+            seconds = minutesOrSeconds[1];
+        };
+
+        timerMinutes.textContent = minutes;
+        timerSeconds.textContent = seconds;
+        secondsValue = seconds;
+        minutesValue = minutes;
+    }
 
     currentInterval = setInterval(() => {
         secondsValue -= 1;
@@ -97,7 +119,9 @@ const startTimer = function startTimer() {
         if (minutesValue === 0 && secondsValue === 0) {
             const container = document.getElementsByClassName('hero--time')[0];
             const title = document.createElement('h2');
+            title.classList.add = 'time-up';
             title.textContent = `Time's up!`;
+            // currentButton.disabled = false;
             container.appendChild(title);
             clearInterval(currentInterval);
         }
@@ -384,10 +408,19 @@ function createTimerContainer() {
     document.getElementsByClassName('hero--container')[0].appendChild(inputContainer);
 
     createInput(inputContainer, 'input', 'input', 'input-minutes', 'number', 'Insert minutes');
-    createChild(document.getElementsByClassName('hero--input')[0], 'div', 'message', 'message-minutes');
+    document.getElementsByClassName('input-minutes')[0].required;
+    document.getElementsByClassName('input-minutes')[0].title = 'Correct format minutes >= 0';
+    document.getElementsByClassName('input-minutes')[0].min = 0;
 
     createInput(inputContainer, 'input', 'input', 'input-seconds', 'number', 'Insert seconds');
-    createChild(document.getElementsByClassName('hero--input')[0], 'div', 'message', 'message-seconds');
+    document.getElementsByClassName('input-seconds')[0].required;
+    document.getElementsByClassName('input-seconds')[0].title = 'Correct format seconds 0-59';
+
+    const bar = document.createElement('div');
+    bar.id = 'mbar';
+    inputContainer.appendChild(bar);
+
+    createInput(document.getElementsByClassName('hero--input')[0], 'div', 'message-seconds');
     document.getElementsByClassName('input-seconds')[0].min = 0;
     document.getElementsByClassName('input-seconds')[0].max = 59;
 
@@ -477,4 +510,36 @@ function updateDisabledPropNavButtons(actButton) {
             document.getElementById(buttonsNav[i]).style.cursor = "pointer";
         }
     }
+}
+
+function checkMinutesAndSeconds(minutes, seconds) {
+    if (Number.isNaN(minutes) || minutes < 0 || Number.isNaN(seconds) || seconds < 0 || seconds > 59) {
+        document.getElementsByClassName('message-seconds')[0].onclick = mbar('Correct format minutes >= 0 and seconds 0 to 59');
+        return false;
+    }
+
+    minutes = checkMinutesSecondsLength(minutes);
+    seconds = checkMinutesSecondsLength(seconds);
+
+    return [minutes, seconds];
+}
+
+function checkMinutesSecondsLength(minutesOrSeconds) {
+    if ((minutesOrSeconds).toString().length < 2) {
+        minutesOrSeconds = ("0" + minutesOrSeconds).slice(-2);
+    }
+
+    return minutesOrSeconds;
+}
+
+function mbar(msg) {
+    let bar = document.createElement('div');
+    bar.classList.add('mbar');
+    document.getElementById("mbar").appendChild(bar);
+    bar.innerHTML = msg + " " + '<img src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png">';
+
+    let image = document.getElementsByClassName('mbar')[0].childNodes[1];
+    image.classList.add('close');
+    image.style.cursor = "pointer";
+    image.onclick = () => { bar.remove(); };
 }
