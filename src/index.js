@@ -12,7 +12,6 @@ document.getElementById('chronometer-button').addEventListener('click', mainInne
 document.getElementById('alarm-button').addEventListener('click', clearScreenAlarm);
 
 function mainInner() {
-    resetChronometer();
     resetStopwatch();
     clearInterval(currentInterval);
 
@@ -102,7 +101,7 @@ const startTimer = function startTimer() {
         let minutes = parseInt(document.getElementsByTagName('input')[0].value);
         let seconds = parseInt(document.getElementsByTagName('input')[1].value);
 
-        let minutesOrSeconds = checkMinutesAndSeconds(minutes, seconds);
+        let minutesOrSeconds = checkMinutesAndSeconds(minutes, seconds, 'Correct format minutes >= 0 and seconds 0 to 59');
 
         if (!minutesOrSeconds) {
             resetChronometer();
@@ -211,7 +210,6 @@ const removeChilds = (parent) => {
 };
 
 function clearScreenAlarm() {
-
     document.getElementsByClassName('hero--title')[0].innerHTML = 'Alarm';
 
     updateDisabledPropNavButtons('alarm-button');
@@ -249,7 +247,6 @@ function createInput(parent, elementType, className, className2, type, title) {
 }
 
 function createContainerAlarm(container) {
-
     const clock = document.createElement('div');
     clock.classList.add('clock');
     container.appendChild(clock);
@@ -292,13 +289,20 @@ function createContainerAlarm(container) {
 
     createChild(document.getElementsByClassName('input-container')[0], 'div', 'message', 'message-minutes');
 
+    const bar = document.createElement('div');
+    bar.id = 'mbar';
+    inputContainer.appendChild(bar);
+
     const saveButton = createChild(inputContainer, 'button', 'button', 'alarm-button', 'button', 'Save');
     saveButton.addEventListener('click', function () {
-        scheduleAlarm(getAlarmTime(alarmHand));
+        scheduleAlarm(getAlarmTime(alarmHand, inputContainer));
     });
 }
 
 function scheduleAlarm(hourMinutes) {
+    if (!hourMinutes) {
+        return;
+    }
     const alarmDate = new Date();
     alarmDate.setHours(hourMinutes[0]);
     alarmDate.setMinutes(hourMinutes[1]);
@@ -317,20 +321,28 @@ function scheduleAlarm(hourMinutes) {
 }
 
 function executeAlarm() {
-    const music = new Audio('./assets/alarm.wav')
+    const music = new Audio('../alarm.wav');
     music.loop = false;
     music.volume = 0.04;
     music.play();
     alert(`Time's up`);
 }
 
-function getAlarmTime(alarmHand) {
+function getAlarmTime(alarmHand, inputContainer) {
     let hour = parseInt(document.getElementsByTagName('input')[0].value);
     let minutes = parseInt(document.getElementsByTagName('input')[1].value);
 
-    const alarm = getDegreesFromTime(minutes + hour * 60, 60, 30);
+    createInput(inputContainer, 'div', 'message-error');
 
-    alarmHand.style.transform = `rotate(${alarm}deg)`;
+    const hourAndMinutes = checkMinutesAndSeconds(hour, minutes, 'Correct format hour 0 to 23 and minutes 0 to 59');
+
+    if (!hourAndMinutes) {
+        return;
+    } else {
+        const alarm = getDegreesFromTime(minutes + hour * 60, 60, 30);
+
+        alarmHand.style.transform = `rotate(${alarm}deg)`;
+    }
 
     return [hour, minutes];
 }
@@ -425,14 +437,14 @@ function createTimerContainer() {
     createInput(inputContainer, 'input', 'input', 'input-seconds', 'number', 'Insert seconds');
     document.getElementsByClassName('input-seconds')[0].required;
     document.getElementsByClassName('input-seconds')[0].title = 'Correct format seconds 0-59';
+    document.getElementsByClassName('input-seconds')[0].min = 0;
+    document.getElementsByClassName('input-seconds')[0].max = 59;
 
     const bar = document.createElement('div');
     bar.id = 'mbar';
     inputContainer.appendChild(bar);
 
-    createInput(document.getElementsByClassName('hero--input')[0], 'div', 'message-seconds');
-    document.getElementsByClassName('input-seconds')[0].min = 0;
-    document.getElementsByClassName('input-seconds')[0].max = 59;
+    createInput(inputContainer, 'div', 'message-error');
 
     createButtonsContainer(startTimer);
 
@@ -522,9 +534,14 @@ function updateDisabledPropNavButtons(actButton) {
     }
 }
 
-function checkMinutesAndSeconds(minutes, seconds) {
+function checkMinutesAndSeconds(minutes, seconds, message) {
+    if (document.getElementsByClassName('hero--title')[0].innerHTML === 'Alarm' && minutes > 23) {
+        document.getElementsByClassName('message-error')[0].onclick = mbar(message);
+        return false;
+    }
+
     if (Number.isNaN(minutes) || minutes < 0 || Number.isNaN(seconds) || seconds < 0 || seconds > 59) {
-        document.getElementsByClassName('message-seconds')[0].onclick = mbar('Correct format minutes >= 0 and seconds 0 to 59');
+        document.getElementsByClassName('message-error')[0].onclick = mbar(message);
         return false;
     }
 
@@ -541,13 +558,15 @@ function checkMinutesSecondsLength(minutesOrSeconds) {
 }
 
 function mbar(msg) {
-    let bar = document.createElement('div');
-    bar.classList.add('mbar');
-    document.getElementById("mbar").appendChild(bar);
-    bar.innerHTML = msg + " " + '<img src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png">';
+    if (!document.getElementsByClassName('mbar')[0]) {
+        let bar = document.createElement('div');
+        bar.classList.add('mbar');
+        document.getElementById("mbar").appendChild(bar);
+        bar.innerHTML = msg + " " + '<img src="https://img.icons8.com/material-outlined/24/000000/delete-sign.png">';
 
-    let image = document.getElementsByClassName('mbar')[0].childNodes[1];
-    image.classList.add('close');
-    image.style.cursor = "pointer";
-    image.onclick = () => { bar.remove(); };
+        let image = document.getElementsByClassName('mbar')[0].childNodes[1];
+        image.classList.add('close');
+        image.style.cursor = "pointer";
+        image.onclick = () => { bar.remove(); };
+    }
 }
