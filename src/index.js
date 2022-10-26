@@ -15,7 +15,7 @@ function mainInner() {
     resetStopwatch();
     clearInterval(currentInterval);
 
-    document.getElementsByClassName('hero--title')[0].innerHTML = 'Chronometer';
+    document.getElementsByClassName('hero__title')[0].innerHTML = 'Chronometer';
 
     updateDisabledPropNavButtons('chronometer-button');
 
@@ -24,12 +24,12 @@ function mainInner() {
         removeInputsClock();
     }
 
-    if (document.getElementsByClassName('hero--buttons')[0]) {
-        const divButton = document.getElementsByClassName('hero--buttons')[0];
+    if (document.getElementsByClassName('hero__buttons')[0]) {
+        const divButton = document.getElementsByClassName('hero__buttons')[0];
         removeChilds(divButton);
     }
 
-    createContainerChronometerTimer(document.getElementsByClassName('hero--title')[0].innerHTML);
+    createContainerChronometerTimer(document.getElementsByClassName('hero__title')[0].innerHTML);
 }
 
 function resetStopwatch() {
@@ -93,8 +93,8 @@ const startTimer = function startTimer() {
 
     removeTimesUp(document.getElementsByClassName('time-up')[0])
 
-    if (document.getElementsByClassName('message-seconds')[0]) {
-        document.getElementsByClassName('message-seconds')[0].innerHTML = "";
+    if (document.getElementsByClassName('message__seconds')[0]) {
+        document.getElementsByClassName('message__seconds')[0].innerHTML = "";
     }
 
     if ((minutesValue && secondsValue) === 00) {
@@ -125,7 +125,7 @@ const startTimer = function startTimer() {
         }
 
         if (parseInt(minutesValue) === 0 && parseInt(secondsValue) === 0) {
-            const container = document.getElementsByClassName('hero--time')[0];
+            const container = document.getElementsByClassName('hero__time')[0];
             const title = document.createElement('h2');
             title.classList.add('time-up');
             title.textContent = `Time's up!`;
@@ -145,13 +145,13 @@ function createTimer() {
     resetStopwatch();
     clearInterval();
 
-    document.getElementsByClassName('hero--title')[0].innerHTML = 'Timer';
+    document.getElementsByClassName('hero__title')[0].innerHTML = 'Timer';
 
     updateDisabledPropNavButtons('timer-button');
 
-    createContainerChronometerTimer(document.getElementsByClassName('hero--title')[0].innerHTML);
+    createContainerChronometerTimer(document.getElementsByClassName('hero__title')[0].innerHTML);
 
-    createPomodoroButton(document.getElementsByClassName('hero--container')[0]);
+    createPomodoroButton(document.getElementsByClassName('hero__container')[0]);
 }
 
 function createButton(parent, elementType, className, className2, type, title, chronometerOrTimer = null) {
@@ -210,31 +210,31 @@ const removeChilds = (parent) => {
 };
 
 function clearScreenAlarm() {
-    document.getElementsByClassName('hero--title')[0].innerHTML = 'Alarm';
+    document.getElementsByClassName('hero__title')[0].innerHTML = 'Alarm';
 
     updateDisabledPropNavButtons('alarm-button');
 
-    if (document.getElementsByClassName('hero--input')[0]) {
-        removeChilds(document.getElementsByClassName('hero--input')[0]);
-        document.getElementsByClassName('hero--input')[0].remove();
+    if (document.getElementsByClassName('hero__input')[0]) {
+        removeChilds(document.getElementsByClassName('hero__input')[0]);
+        document.getElementsByClassName('hero__input')[0].remove();
     }
 
-    if (document.getElementsByClassName('pomodoro--container')[0]) {
-        removeChilds(document.getElementsByClassName('pomodoro--container')[0]);
-        document.getElementsByClassName('pomodoro--container')[0].remove();
+    if (document.getElementsByClassName('pomodoro__container')[0]) {
+        removeChilds(document.getElementsByClassName('pomodoro__container')[0]);
+        document.getElementsByClassName('pomodoro__container')[0].remove();
     }
 
-    if (document.getElementsByClassName('hero--buttons')[0]) {
-        removeChilds(document.getElementsByClassName('hero--buttons')[0]);
-        document.getElementsByClassName('hero--buttons')[0].remove();
+    if (document.getElementsByClassName('hero__buttons')[0]) {
+        removeChilds(document.getElementsByClassName('hero__buttons')[0]);
+        document.getElementsByClassName('hero__buttons')[0].remove();
     }
 
-    if (document.getElementsByClassName('hero--time')[0]) {
-        removeChilds(document.getElementsByClassName('hero--time')[0]);
-        document.getElementsByClassName('hero--time')[0].remove();
+    if (document.getElementsByClassName('hero__time')[0]) {
+        removeChilds(document.getElementsByClassName('hero__time')[0]);
+        document.getElementsByClassName('hero__time')[0].remove();
     }
 
-    createContainerAlarm(document.getElementsByClassName('hero--container')[0]);
+    createContainerAlarm(document.getElementsByClassName('hero__container')[0]);
 
     // Make sure that it's updated before the first interval tick
     updateClockHandles();
@@ -254,13 +254,13 @@ function createContainerAlarm(container) {
     const outerClock = createChild(clock, 'div', 'outer-clock-face');
     const innerClock = createChild(outerClock, 'div', 'inner-clock');
 
-    createChild(innerClock, 'div', 'hand', 'hour-hand');
-    createChild(innerClock, 'div', 'hand', 'minute-hand');
-    createChild(innerClock, 'div', 'hand', 'second-hand');
-    createChild(innerClock, 'div', 'hand', 'alarm-hand');
+    createChild(innerClock, 'div', 'hand', 'hour__hand');
+    createChild(innerClock, 'div', 'hand', 'minute__hand');
+    createChild(innerClock, 'div', 'hand', 'second__hand');
+    createChild(innerClock, 'div', 'hand', 'alarm__hand');
     createChild(innerClock, 'div', 'hand', 'middle');
 
-    const alarmHand = document.getElementsByClassName('alarm-hand')[0];
+    const alarmHand = document.getElementsByClassName('alarm__hand')[0];
 
     {
         const numbersName = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
@@ -274,20 +274,20 @@ function createContainerAlarm(container) {
         }
     }
 
-    createChild(container, 'div', 'input-container');
-    const inputContainer = document.getElementsByClassName('input-container')[0];
+    createChild(container, 'div', 'input__container');
+    const inputContainer = document.getElementsByClassName('input__container')[0];
 
-    createInput(inputContainer, 'input', 'input', 'input-hour', 'number', 'Insert hour');
-    document.getElementsByClassName('input-hour')[0].min = 0;
-    document.getElementsByClassName('input-hour')[0].max = 23;
+    createInput(inputContainer, 'input', 'input', 'input__hour', 'number', 'Insert hour');
+    document.getElementsByClassName('input__hour')[0].min = 0;
+    document.getElementsByClassName('input__hour')[0].max = 23;
 
-    createChild(document.getElementsByClassName('input-container')[0], 'div', 'message', 'message-hour');
+    createChild(document.getElementsByClassName('input__container')[0], 'div', 'message', 'message__hour');
 
-    createInput(inputContainer, 'input', 'input', 'input-minutes', 'number', 'Insert minutes');
-    document.getElementsByClassName('input-minutes')[0].min = 0;
-    document.getElementsByClassName('input-minutes')[0].max = 59;
+    createInput(inputContainer, 'input', 'input', 'input__minutes', 'number', 'Insert minutes');
+    document.getElementsByClassName('input__minutes')[0].min = 0;
+    document.getElementsByClassName('input__minutes')[0].max = 59;
 
-    createChild(document.getElementsByClassName('input-container')[0], 'div', 'message', 'message-minutes');
+    createChild(document.getElementsByClassName('input__container')[0], 'div', 'message', 'message__minutes');
 
     const bar = document.createElement('div');
     bar.id = 'mbar';
@@ -332,7 +332,7 @@ function getAlarmTime(alarmHand, inputContainer) {
     let hour = parseInt(document.getElementsByTagName('input')[0].value);
     let minutes = parseInt(document.getElementsByTagName('input')[1].value);
 
-    createInput(inputContainer, 'div', 'message-error');
+    createInput(inputContainer, 'div', 'message__error');
 
     const hourAndMinutes = checkMinutesAndSeconds(hour, minutes, 'Correct format hour 0 to 23 and minutes 0 to 59');
 
@@ -348,9 +348,9 @@ function getAlarmTime(alarmHand, inputContainer) {
 }
 
 function tranformHandles(seconds, minutes, hour) {
-    const hourHand = document.querySelector('.hour-hand');
-    const minHand = document.querySelector('.minute-hand');
-    const secondHand = document.querySelector('.second-hand');
+    const hourHand = document.querySelector('.hour__hand');
+    const minHand = document.querySelector('.minute__hand');
+    const secondHand = document.querySelector('.second__hand');
 
     if (secondHand && minHand && hourHand) {
         secondHand.style.transform = `rotate(${getDegreesFromTime(seconds, 60)}deg)`;
@@ -375,7 +375,7 @@ function createContainerChronometerTimer(innerHtml) {
         removeInputsClock();
     }
 
-    if (!document.getElementsByClassName('hero--time')[0]) {
+    if (!document.getElementsByClassName('hero__time')[0]) {
         createHeroTime();
     }
 
@@ -393,13 +393,13 @@ function createContainerChronometerTimer(innerHtml) {
 
 function createPomodoroButton(parent) {
     const div = document.createElement('div');
-    div.classList.add('pomodoro--container');
+    div.classList.add('pomodoro__container');
     parent.appendChild(div);
 
     const pomodoro = createChild(div, 'button', 'button', 'pomodoro', 'button', 'Pomodoro');
     pomodoro.addEventListener('click', () => {
-        document.getElementsByClassName('input-minutes')[0].value = 5;
-        document.getElementsByClassName('input-seconds')[0].value = 0;
+        document.getElementsByClassName('input__minutes')[0].value = 5;
+        document.getElementsByClassName('input__seconds')[0].value = 0;
     });
 
     timerMinutes = document.getElementById('minutes');
@@ -409,14 +409,14 @@ function createPomodoroButton(parent) {
 function createChronometerContainer() {
     removeButtonsContainer();
 
-    if (document.getElementsByClassName('hero--input')[0]) {
-        removeChilds(document.getElementsByClassName('hero--input')[0]);
-        document.getElementsByClassName('hero--input')[0].remove();
+    if (document.getElementsByClassName('hero__input')[0]) {
+        removeChilds(document.getElementsByClassName('hero__input')[0]);
+        document.getElementsByClassName('hero__input')[0].remove();
     }
 
-    if (document.getElementsByClassName('pomodoro--container')[0]) {
-        removeChilds(document.getElementsByClassName('pomodoro--container')[0]);
-        document.getElementsByClassName('pomodoro--container')[0].remove();
+    if (document.getElementsByClassName('pomodoro__container')[0]) {
+        removeChilds(document.getElementsByClassName('pomodoro__container')[0]);
+        document.getElementsByClassName('pomodoro__container')[0].remove();
     }
 
     createButtonsContainer(startChronometer);
@@ -426,59 +426,59 @@ function createTimerContainer() {
     removeButtonsContainer();
 
     const inputContainer = document.createElement('div');
-    inputContainer.classList.add('hero--input');
-    document.getElementsByClassName('hero--container')[0].appendChild(inputContainer);
+    inputContainer.classList.add('hero__input');
+    document.getElementsByClassName('hero__container')[0].appendChild(inputContainer);
 
-    createInput(inputContainer, 'input', 'input', 'input-minutes', 'number', 'Insert minutes');
-    document.getElementsByClassName('input-minutes')[0].required;
-    document.getElementsByClassName('input-minutes')[0].title = 'Correct format minutes >= 0';
-    document.getElementsByClassName('input-minutes')[0].min = 0;
+    createInput(inputContainer, 'input', 'input', 'input__minutes', 'number', 'Insert minutes');
+    document.getElementsByClassName('input__minutes')[0].required;
+    document.getElementsByClassName('input__minutes')[0].title = 'Correct format minutes >= 0';
+    document.getElementsByClassName('input__minutes')[0].min = 0;
 
-    createInput(inputContainer, 'input', 'input', 'input-seconds', 'number', 'Insert seconds');
-    document.getElementsByClassName('input-seconds')[0].required;
-    document.getElementsByClassName('input-seconds')[0].title = 'Correct format seconds 0-59';
-    document.getElementsByClassName('input-seconds')[0].min = 0;
-    document.getElementsByClassName('input-seconds')[0].max = 59;
+    createInput(inputContainer, 'input', 'input', 'input__seconds', 'number', 'Insert seconds');
+    document.getElementsByClassName('input__seconds')[0].required;
+    document.getElementsByClassName('input__seconds')[0].title = 'Correct format seconds 0-59';
+    document.getElementsByClassName('input__seconds')[0].min = 0;
+    document.getElementsByClassName('input__seconds')[0].max = 59;
 
     const bar = document.createElement('div');
     bar.id = 'mbar';
     inputContainer.appendChild(bar);
 
-    createInput(inputContainer, 'div', 'message-error');
+    createInput(inputContainer, 'div', 'message__error');
 
     createButtonsContainer(startTimer);
 
     const form = document.createElement('form');
     form.classList.add('form--timer');
-    document.getElementsByClassName('hero--buttons')[0].appendChild(form);
+    document.getElementsByClassName('hero__buttons')[0].appendChild(form);
     form.onsubmit = function () {
         startTimer();
     };
 }
 
 function removeButtonsContainer() {
-    if (document.getElementsByClassName('hero--buttons')[0]) {
-        removeChilds(document.getElementsByClassName('hero--buttons')[0]);
-        document.getElementsByClassName('hero--buttons')[0].remove();
+    if (document.getElementsByClassName('hero__buttons')[0]) {
+        removeChilds(document.getElementsByClassName('hero__buttons')[0]);
+        document.getElementsByClassName('hero__buttons')[0].remove();
     }
 }
 
 function createButtonsContainer(start) {
     const heroButtons = document.createElement('div');
-    heroButtons.classList.add('hero--buttons');
-    document.getElementsByClassName('hero--container')[0].appendChild(heroButtons);
+    heroButtons.classList.add('hero__buttons');
+    document.getElementsByClassName('hero__container')[0].appendChild(heroButtons);
 
-    createButton(heroButtons, 'button', 'button', 'hero--button', 'button', 'Start', start);
-    createButton(heroButtons, 'button', 'button', 'hero--button', 'button', 'Stop', stopChronometer);
-    createButton(heroButtons, 'button', 'button', 'hero--button', 'button', 'Reset', resetChronometer);
+    createButton(heroButtons, 'button', 'button', 'hero__button', 'button', 'Start', start);
+    createButton(heroButtons, 'button', 'button', 'hero__button', 'button', 'Stop', stopChronometer);
+    createButton(heroButtons, 'button', 'button', 'hero__button', 'button', 'Reset', resetChronometer);
 }
 
 function removeClock() {
     const clock = document.getElementsByClassName('clock')[0];
 
-    const minHand = document.querySelector('.minute-hand');
-    const secHand = document.querySelector('.second-hand');
-    const hourHand = document.querySelector('.hour-hand');
+    const minHand = document.querySelector('.minute__hand');
+    const secHand = document.querySelector('.second__hand');
+    const hourHand = document.querySelector('.hour__hand');
 
     if (minHand && secHand && hourHand) {
         minHand.style.transform = 'none';
@@ -491,9 +491,9 @@ function removeClock() {
 }
 
 function createHeroTime() {
-    createChild(document.getElementsByClassName('hero--container')[0], 'div', 'hero--time', null, null, null);
+    createChild(document.getElementsByClassName('hero__container')[0], 'div', 'hero__time', null, null, null);
 
-    const divTime = document.getElementsByClassName('hero--time')[0];
+    const divTime = document.getElementsByClassName('hero__time')[0];
     createChild(divTime, 'p', 'time', null, null, null);
 
     const time = document.getElementsByClassName('time')[0];
@@ -516,8 +516,8 @@ function createHeroTime() {
 }
 
 function removeInputsClock() {
-    removeChilds(document.getElementsByClassName('input-container')[0]);
-    document.getElementsByClassName('input-container')[0].remove();
+    removeChilds(document.getElementsByClassName('input__container')[0]);
+    document.getElementsByClassName('input__container')[0].remove();
 }
 
 function updateDisabledPropNavButtons(actButton) {
@@ -535,13 +535,13 @@ function updateDisabledPropNavButtons(actButton) {
 }
 
 function checkMinutesAndSeconds(minutes, seconds, message) {
-    if (document.getElementsByClassName('hero--title')[0].innerHTML === 'Alarm' && minutes > 23) {
-        document.getElementsByClassName('message-error')[0].onclick = mbar(message);
+    if (document.getElementsByClassName('hero__title')[0].innerHTML === 'Alarm' && minutes > 23) {
+        document.getElementsByClassName('message__error')[0].onclick = mbar(message);
         return false;
     }
 
     if (Number.isNaN(minutes) || minutes < 0 || Number.isNaN(seconds) || seconds < 0 || seconds > 59) {
-        document.getElementsByClassName('message-error')[0].onclick = mbar(message);
+        document.getElementsByClassName('message__error')[0].onclick = mbar(message);
         return false;
     }
 

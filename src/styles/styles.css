@@ -26,7 +26,7 @@ header {
     width: 100%;
 }
 
-.header--nav ul {
+.header__nav ul {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -34,7 +34,7 @@ header {
     padding: 10px;
 }
 
-.header--nav ul li button img {
+.header__nav ul li button img {
     width: 30px;
 }
 
@@ -44,7 +44,7 @@ main {
     text-align: center;
 }
 
-.hero--container {
+.hero__container {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -53,22 +53,22 @@ main {
     height: 550px;
 }
 
-.hero--title {
+.hero__title {
     font-size: 2.6rem;
 }
 
-.hero--time p {
+.hero__time p {
     font-size: 2.4rem;
 }
 
-.header--button {
+.header__button {
     background-color: transparent;
     border: transparent;
     width: 20px;
     height: 20px;
 }
 
-.hero--button, .alarm-button {
+.hero__button, .alarm-button {
     background-color: white;
     border-radius: 40px;
     border: transparent;
@@ -86,7 +86,7 @@ button:hover {
     cursor: default;
 }
 
-.hero--button:disabled {
+.hero__button:disabled {
     background-color: lightgray;
     border: lightgray solid;
 }
@@ -100,14 +100,14 @@ button:hover {
     margin: 10px auto;
 }
 
-.pomodoro--container .pomodoro {
+.pomodoro__container .pomodoro {
     width: 70px;
     background-color: tomato;
     border: transparent;
     border-radius: 40px;
 }
 
-.pomodoro--container {
+.pomodoro__container {
     margin: 15px;
 }
 
@@ -164,7 +164,7 @@ button:hover {
     transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
 }
 
-.hand.hour-hand {
+.hand.hour__hand {
     width: 30%;
     z-index: 3;
     background: white;
@@ -174,7 +174,7 @@ button:hover {
         inset 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.hand.minute-hand {
+.hand.minute__hand {
     height: 3px;
     z-index: 10;
     width: 44%;
@@ -184,7 +184,7 @@ button:hover {
         inset 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.hand.second-hand {
+.hand.second__hand {
     background: gray;
     width: 48%;
     height: 1px;
@@ -194,7 +194,7 @@ button:hover {
         inset 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.hand.alarm-hand {
+.hand.alarm__hand {
     background: red;
     width: 50px;
     height: 2px;
@@ -283,13 +283,13 @@ button:hover {
     top: -1%;
 }
 
-.hero--buttons .input-container {
+.hero__buttons .input__container {
     display: flex;
     margin: 20px;
     justify-content: center;
 }
 
-.hero--buttons .input-container .input {
+.hero__buttons .input__container .input {
     margin: 5px;
     width: 120px;
     border: transparent;
