@@ -64,6 +64,8 @@ main {
 .header--button {
     background-color: transparent;
     border: transparent;
+    width: 20px;
+    height: 20px;
 }
 
 .hero--button, .alarm-button {
@@ -303,7 +305,8 @@ button:hover {
 }
 
 .mbar {
-    padding: 5px; margin: 5px;
+    padding: 5px;
+    margin: 5px;
     width: 330px;
     position: relative;
     display: flex;
