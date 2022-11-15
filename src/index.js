@@ -7,6 +7,7 @@ let secondsValue = 0;
 let minutesValue = 0;
 let currentInterval;
 let currentButton;
+
 document.getElementById('timer-button').addEventListener('click', createTimer);
 document.getElementById('chronometer-button').addEventListener('click', mainInner);
 document.getElementById('alarm-button').addEventListener('click', clearScreenAlarm);
@@ -97,13 +98,12 @@ function removeTimesUp(timesUp) {
     }
 }
 
-const startTimer = function startTimer() {
+const startTimer = function startTimer(event) {
     event.preventDefault();
     currentButton = event.target;
     currentButton.disabled = true;
 
     removeTimesUp(document.getElementsByClassName('time-up')[0])
-
 
     if ((minutesValue && secondsValue) === 00) {
         let minutes = parseInt(document.getElementsByTagName('input')[0].value);
@@ -133,11 +133,7 @@ const startTimer = function startTimer() {
         }
 
         if (parseInt(minutesValue) === 0 && parseInt(secondsValue) === 0) {
-            const container = document.getElementsByClassName('hero__time')[0];
-            const title = document.createElement('h2');
-            title.classList.add('time-up');
-            title.textContent = `Time's up!`;
-            container.appendChild(title);
+            executeAlarm();
 
             currentButton.disabled = false;
             clearInterval(currentInterval);
@@ -308,9 +304,11 @@ function createContainerAlarm(container) {
 }
 
 function scheduleAlarm(hourMinutes) {
+
     if (!hourMinutes) {
         return;
     }
+
     const alarmDate = new Date();
     alarmDate.setHours(hourMinutes[0]);
     alarmDate.setMinutes(hourMinutes[1]);
@@ -460,7 +458,7 @@ function createTimerContainer() {
     form.classList.add('form--timer');
     document.getElementsByClassName('hero__buttons')[0].appendChild(form);
     form.onsubmit = function () {
-        startTimer();
+        startTimer(e);
     };
 }
 
@@ -483,7 +481,6 @@ function createButtonsContainer(start) {
 
 function removeClock() {
     const clock = document.getElementsByClassName('clock')[0];
-
     const minHand = document.querySelector('.minute__hand');
     const secHand = document.querySelector('.second__hand');
     const hourHand = document.querySelector('.hour__hand');
