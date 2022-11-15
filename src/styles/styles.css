@@ -34,6 +34,10 @@ header {
     padding: 10px;
 }
 
+.header__nav ul li {
+    width: 30px;
+}
+
 .header__nav ul li button img {
     width: 30px;
 }
