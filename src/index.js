@@ -70,13 +70,23 @@ function stopChronometer() {
 }
 
 function resetChronometer() {
-    minutesValue = 0;
-    secondsValue = 0;
+    if (document.getElementsByClassName('hero__title')[0].innerHTML === 'Timer' &&
+        document.getElementsByClassName('input')[0].value !== '' &&
+        document.getElementsByClassName('input')[1].value !== '') {
+        minutesValue = document.getElementsByClassName('input')[0].value;
+        secondsValue = document.getElementsByClassName('input')[1].value;
 
-    timerMinutes.textContent = '00';
-    timerSeconds.textContent = '00';
+        timerMinutes.textContent = `${formatValue(minutesValue)}`;
+        timerSeconds.textContent = `${formatValue(secondsValue)}`;
+    } else {
+        minutesValue = 0;
+        secondsValue = 0;
 
-    currentButton.disabled = false;
+        timerMinutes.textContent = '00';
+        timerSeconds.textContent = '00';
+
+        currentButton.disabled = false;
+    }
 
     removeTimesUp(document.getElementsByClassName('time-up')[0]);
 }
