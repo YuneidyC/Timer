@@ -35,6 +35,7 @@ function mainInner() {
 function resetStopwatch() {
     secondsValue = 0;
     minutesValue = 0;
+
     timerMinutes.textContent = '00';
     timerSeconds.textContent = '00';
 
@@ -93,9 +94,6 @@ const startTimer = function startTimer() {
 
     removeTimesUp(document.getElementsByClassName('time-up')[0])
 
-    if (document.getElementsByClassName('message__seconds')[0]) {
-        document.getElementsByClassName('message__seconds')[0].innerHTML = "";
-    }
 
     if ((minutesValue && secondsValue) === 00) {
         let minutes = parseInt(document.getElementsByTagName('input')[0].value);
@@ -554,6 +552,8 @@ function checkMinutesAndSeconds(minutes, seconds, message) {
 function checkMinutesSecondsLength(minutesOrSeconds) {
     if ((minutesOrSeconds).toString().length < 2) {
         return formatValue(minutesOrSeconds);
+    } else {
+        return minutesOrSeconds.toString();
     }
 }
 
