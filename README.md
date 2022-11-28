@@ -18,4 +18,4 @@ This project was made to practice and learn how to manipulate the DOM with JS.
 
 # Test it out
 
-You can test this [**here**]('https://yuneidyc.github.io/Timer/').
+You can test this [**here**](https://yuneidyc.github.io/Timer/).
