@@ -16,6 +16,10 @@ This project was made to practice and learn how to manipulate the DOM with JS.
   </a>
 </p>
 
+# Lighthouse
+
+<img src="lighthouse_results/desktop/pagespeed.svg" alt="Lighthouse report" width="800" />
+
 # Test it out
 
 You can test this [**here**](https://yuneidyc.github.io/Timer/).
