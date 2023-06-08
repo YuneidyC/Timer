@@ -2,7 +2,7 @@
 
 This project was made to practice and learn how to manipulate the DOM with JS.
 
-# Tech stack
+## Tech stack
 
 <p>
   <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" >
@@ -16,10 +16,10 @@ This project was made to practice and learn how to manipulate the DOM with JS.
   </a>
 </p>
 
-# Lighthouse
+## Lighthouse
 
 <img src="lighthouse_results/desktop/pagespeed.svg" alt="Lighthouse report" width="800" />
 
-# Test it out
+## Test it out
 
 You can test this [**here**](https://yuneidyc.github.io/Timer/).
